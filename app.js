@@ -5,15 +5,8 @@ const correctAnswers = ['A', 'D', 'B', 'C']
 
 let score = 0
 
-const getUserAnswers = () => {
-  let userScore = []
-  correctAnswers.forEach((_, index) => {
-    const userAnswer = form[`inputQuestion${index + 1}`].value
-    userScore.push(userAnswer)
-  })
-
-  return userScore
-}
+const getUserAnswers = () => correctAnswers.map((_, index) =>
+  form[`inputQuestion${index + 1}`].value)
 
 const calculateUser = userAnswers => {
   userAnswers.forEach((userAnswer, index) => {
@@ -46,11 +39,16 @@ const animateScore = () => {
   }, 10)
 }
 
+const resetUserScore = () => {
+  score = 0
+}
+
 form.addEventListener('submit', event => {
   event.preventDefault()
 
   const userAnswers = getUserAnswers()
 
+  resetUserScore()
   calculateUser(userAnswers)
   showFinalScore()
   animateScore()
